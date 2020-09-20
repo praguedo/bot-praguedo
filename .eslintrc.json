@@ -30,7 +30,8 @@
         {
           "ts": "never"
         }
-      ]
+      ],
+      "no-unused-expressions": "off"
     },
     "settings": {
       "import/resolver": {
