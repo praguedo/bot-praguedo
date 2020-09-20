@@ -1,12 +1,11 @@
-import { Client } from 'discord.js';
+import { Client, Message } from 'discord.js';
+import config from '../config';
 
 const client = new Client();
 
-client.on('ready', () => {
-  console.log(
-    `Bot foi iniciado, com ${client.users} usuários, em ${client.channels} canais, em ${client.guilds} servidores.`,
-  );
+const acceptedCommands = ['help', 'ping', 'ola', 'oi'];
 
+client.on('ready', () => {
   client.user?.setPresence({
     activity: {
       name: 'Jogando',
@@ -14,28 +13,32 @@ client.on('ready', () => {
       url: 'twitch.tv/vinitartari',
     },
   });
-  // 0 = Jogando
-  //  1 = Transmitindo
-  //  2 = Ouvindo
-  //  3 = Assistindo
 });
 
-client.on('message', async (message: any) => {
+client.on('message', async (message: Message) => {
   if (message.author.bot) return;
   if (message.channel.type === 'dm') return;
   if (!message.content.startsWith('?')) return;
 
   const args = message.content.slice(1).trim().split(/ +/g);
-  const comando = args.shift().toLowerCase();
+  console.log(args);
+  console.log(acceptedCommands);
 
-  // coamdno ping
-  if (comando === 'ping') {
+  if (args[0] === 'ping') {
     const m = await message.channel.send('Ping?');
+
     m.edit(
       `Pong! A Latência é ${
         m.createdTimestamp - message.createdTimestamp
       }ms. A Latencia da API é ms`,
     );
+  }
+});
+
+client.on('message', (msg: Message) => {
+  if (!msg.author.bot) {
+    console.log(`${msg.author.username}: ${msg.content}`);
+    if (msg.content === 'ola') msg.reply('Fala seu praga filha da puta');
   }
 });
 
