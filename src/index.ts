@@ -1,9 +1,24 @@
 import { Client, Message } from 'discord.js';
-import config from '../config';
+// import config from '../config';
+import * as comandos from './commands';
 
 const client = new Client();
 
-const acceptedCommands = ['help', 'ping', 'ola', 'oi'];
+const acceptedCommands = {
+  help: 'help',
+  ping: 'ping',
+  ola: 'ola',
+  oi: 'oi',
+};
+
+function isValidCommand(value: string): value is keyof typeof acceptedCommands {
+  return value in acceptedCommands;
+}
+function isValidSequence(
+  commands: string[],
+): commands is Array<keyof typeof acceptedCommands> {
+  return commands.every(isValidCommand);
+}
 
 client.on('ready', () => {
   client.user?.setPresence({
@@ -16,23 +31,28 @@ client.on('ready', () => {
 });
 
 client.on('message', async (message: Message) => {
-  if (message.author.bot) return;
-  if (message.channel.type === 'dm') return;
-  if (!message.content.startsWith('?')) return;
+  if (
+    message.author.bot ||
+    message.channel.type === 'dm' ||
+    !message.content.startsWith('?')
+  ) {
+    return;
+  }
 
   const args = message.content.slice(1).trim().split(/ +/g);
-  console.log(args);
-  console.log(acceptedCommands);
 
-  if (args[0] === 'ping') {
-    const m = await message.channel.send('Ping?');
-
-    m.edit(
-      `Pong! A Latência é ${
-        m.createdTimestamp - message.createdTimestamp
-      }ms. A Latencia da API é ms`,
-    );
+  if (!isValidSequence(args)) {
+    message.reply('Comando inválido disgraça');
+    return;
   }
+
+  const commandss = args.map(command => acceptedCommands[command]);
+
+  // console.log(comandos[commandss[0]](client, message));
+
+  // if (comandos[commandss[0]]) {
+  //   comandos[commandss[0]](client, message);
+  // }
 });
 
 client.on('message', (msg: Message) => {

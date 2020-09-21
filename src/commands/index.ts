@@ -1,17 +1,22 @@
 import { Message, Client } from 'discord.js';
 
-// export const aviso = async (client: Client, msg: Message) => {
-//   const avisoChannel = await msg.guild.channels.cache.find(
+// const aviso = async (client: Client, message: Message) => {
+//   const avisoChannel = await message.guild.channels.cache.find(
 //     channel => channel.id == config.avisosChannelId,
 //   );
 
-//   let message = msg.content.split(' ');
+//   let message = message.content.split(' ');
 //   message.splice(0, 1);
 //   message = message.join(' ');
 //   await avisoChannel.send(`@everyone ${message}`);
-//   msg.reply(`Avisado no canal ${avisoChannel}`);
+//   message.reply(`Avisado no canal ${avisoChannel}`);
 // };
 
-export const ping = async (client: Client, msg: Message) => {};
+export const ping = async (client: Client, message: Message) => {
+  const msg = await message.channel.send('Quer saber o ping desgraça?');
+  message.reply(
+    `A Latência: ${msg.createdTimestamp - message.createdTimestamp}ms.`,
+  );
+};
 
-export const help = async (client: Client, msg: Message) => {};
+export const help = async (client: Client, message: Message) => {};

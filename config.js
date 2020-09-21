@@ -1,21 +1,21 @@
 export default  config = {
-  "token": "NzU3MjcwMzE1MzcyOTA0NDUw.X2d88A._gKNM_JdnD5xKLivb4EPm9hBx7k",
-  "prefix": "?",
+  token: "NzU3MjcwMzE1MzcyOTA0NDUw.X2d88A._gKNM_JdnD5xKLivb4EPm9hBx7k",
+  prefix: "?",
 
-  "avisosChannelId": "",
-  "boasVindasChannelId": "",
+  avisosChannelId: "",
+  boasVindasChannelId: "",
 
-  "permissions":{
-    "!aviso":[
+  permissions: {
+    aviso: [
       {
-          "type": "role",
-          "value": ""
+          type: "role",
+          value: ""
       }
     ],
-    "!clear":[
+    clear: [
       {
-        "type": "permission",
-        "value": ""
+        type: "permission",
+        value: ""
       }
     ]
   }
