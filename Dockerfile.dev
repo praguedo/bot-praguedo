@@ -1,0 +1,16 @@
+FROM node:lts-alpine
+
+RUN mkdir -p /home/bot/node_modules && chown -R node:node /home/bot
+
+WORKDIR /home/bot
+
+COPY package.json yarn.* ./
+
+USER node
+
+RUN yarn
+
+CMD ["yarn", "dev"]
+
+# docker build -f Dockerfile.dev -t bot-praguedo-dev .
+# docker run -it -v ${PWD}:/home/bot -v /home/bot/node_modules --rm bot-praguedo-dev
