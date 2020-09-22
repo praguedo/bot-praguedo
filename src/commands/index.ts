@@ -12,11 +12,22 @@ import { Message, Client } from 'discord.js';
 //   message.reply(`Avisado no canal ${avisoChannel}`);
 // };
 
-export const ping = async (client: Client, message: Message) => {
+const ping = async (client: Client, message: Message) => {
   const msg = await message.channel.send('Quer saber o ping desgraça?');
   message.reply(
     `A Latência: ${msg.createdTimestamp - message.createdTimestamp}ms.`,
   );
 };
 
-export const help = async (client: Client, message: Message) => {};
+const help = async (client: Client, message: Message) => {};
+
+const oi = async (client: Client, message: Message) => {};
+
+const ola = async (client: Client, message: Message) => {};
+
+export default {
+  ping,
+  help,
+  oi,
+  ola,
+};

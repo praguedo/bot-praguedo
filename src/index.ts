@@ -1,6 +1,6 @@
 import { Client, Message } from 'discord.js';
 // import config from '../config';
-import * as comandos from './commands';
+import commands from './commands';
 
 const client = new Client();
 
@@ -15,9 +15,9 @@ function isValidCommand(value: string): value is keyof typeof acceptedCommands {
   return value in acceptedCommands;
 }
 function isValidSequence(
-  commands: string[],
-): commands is Array<keyof typeof acceptedCommands> {
-  return commands.every(isValidCommand);
+  cmd: string[],
+): cmd is Array<keyof typeof acceptedCommands> {
+  return cmd.every(isValidCommand);
 }
 
 client.on('ready', () => {
@@ -46,13 +46,11 @@ client.on('message', async (message: Message) => {
     return;
   }
 
-  const commandss = args.map(command => acceptedCommands[command]);
+  const commandName = args.map(command => acceptedCommands[command]);
 
-  // console.log(comandos[commandss[0]](client, message));
-
-  // if (comandos[commandss[0]]) {
-  //   comandos[commandss[0]](client, message);
-  // }
+  if (commands[commandName[0]]) {
+    commands[commandName[0]](client, message);
+  }
 });
 
 client.on('message', (msg: Message) => {
