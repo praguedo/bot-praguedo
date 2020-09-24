@@ -7,7 +7,7 @@ const client = new Client();
 
 const { onMessege, onReady } = events;
 
-client.on('ready', () => onReady(client));
+client.on('ready', () => onReady(client, process.env.PREFIX || '?'));
 
 client.on('message', async (message: Message) => onMessege(message, client));
 
