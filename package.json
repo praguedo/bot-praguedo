@@ -9,7 +9,7 @@
     "build": "tsc",
     "dev": "ts-node-dev --inspect --ignore-watch node_modules src/index.ts",
     "start": "node dist/src/index.js",
-    "commands": "node src/scripts/commands-generator-index.js"
+    "commands": "ts-node-dev src/scripts/commands-generator-index.ts"
   },
   "dependencies": {
     "axios": "^0.20.0",
