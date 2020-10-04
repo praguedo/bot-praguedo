@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  ranking-bot:
+    build: .
+    container_name: ranking-bot
+    volumes:
+      - .:/home/bot
+      - /home/bot/node_modules
+    depends_on:
+      - bot-ranking
+    networks:
+      - ranking-network
+  bot-ranking:
+    image: bitnami/redis:latest
+    container_name: bot-ranking
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - bot-ranking-data:/data
+    networks:
+      - ranking-network
+
+volumes:
+  bot-ranking-data:
+
+networks:
+  ranking-network:
+    driver: bridge
